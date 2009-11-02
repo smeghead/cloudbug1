@@ -1,0 +1,219 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <meta http-equiv="Content-Style-type" content="text/css" />
+  <title>らじおてすと - チケット登録</title>
+  <link rel="stylesheet" type="text/css" href="{{path.script_name}}/../css/style.css" />
+
+  <script type="text/javascript" src="{{path.script_name}}/../js/prototype.js"></script>
+  <script type="text/javascript" src="/{{path.script_name}}top/top_gettext_js"></script>
+  <script type="text/javascript" src="/{{path.script_name}}../js/register.js"></script>
+</head>
+<body>
+<a name="top"></a>
+<h1 id="toptitle" title="Starbug1"><a href="http://starbug1.sourceforge.jp/"><img src="{{path.script_name}}/../img/starbug1.jpg" alt="Starbug1" /></a></h1>
+<div>
+
+<ul id='projectmenu'>
+  <li><a  href='/' title="状態別のチケット一覧を参照します">状態別チケット一覧</a></li>
+  <li><a class="current" href='/register' title="新規にチケットを登録します">チケット登録</a></li>
+</ul>
+<br clear='all' />
+</div>
+<h2>らじおてすと - チケット登録</h2>
+<div id="input_form">
+<h3>チケット登録</h3>
+<div class="description">新規チケットを登録する場合は、以下のフォームを記入し登録ボタンを押してください。</div>
+<noscript><div class="description">※必須項目の入力チェックは、javascriptで行なっています。</div></noscript>
+<form id="register_form" name="register_form" action="/register" method="post">
+<table summary="input infomation">
+  <tr>
+    <th class="required ticket_property">件名<span class="required">※</span></th><td>
+
+      <div id="field1.required" class="error"></div>
+<input type="text" class="text element" id="field1" name="field1" value="" maxlength="1023" />
+      <div class="description">内容を簡潔に表すような件名を入力してください。&nbsp;</div>
+    </td>
+  </tr>
+  <tr>
+    <th class="required">投稿者<span class="required">※</span></th><td>
+      <div id="field2.required" class="error"></div>
+
+<input type="text" class="text element" id="field2" name="Message.field2" value="" maxlength="1023" />
+      <div class="description">投稿者を入力してください。&nbsp;</div>
+    </td>
+  </tr>
+  <tr>
+    <th class="required ticket_property">状態<span class="required">※</span></th><td>
+      <div id="field3.required" class="error"></div>
+<input type="hidden" id="Message.field3" name="field3-hidden" value="新規" />
+
+<table id="ticket_list" class="selection">
+<tr>
+<td class="field3-1 checkbox">
+<input type="radio" id="field3-1" name="field3" value="新規" checked="checked" /></td>
+<td class="field3-1">
+<label for="field3-1">
+<strong>新規</strong></label>
+</td>
+</tr>
+<tr>
+<td class="field3-2 checkbox">
+<input type="radio" id="field3-2" name="field3" value="受付済" /></td>
+<td class="field3-2">
+<label for="field3-2">
+受付済</label>
+
+</td>
+</tr>
+<tr>
+<td class="field3-3 checkbox">
+<input type="radio" id="field3-3" name="field3" value="修正済" /></td>
+<td class="field3-3">
+<label for="field3-3">
+修正済</label>
+</td>
+</tr>
+<tr>
+<td class="field3-4 checkbox">
+<input type="radio" id="field3-4" name="field3" value="保留" /></td>
+<td class="field3-4">
+<label for="field3-4">
+保留</label>
+
+</td>
+</tr>
+<tr>
+<td class="field3-5 checkbox">
+<input type="radio" id="field3-5" name="field3" value="完了" /></td>
+<td class="field3-5">
+<label for="field3-5">
+完了</label>
+</td>
+</tr>
+<tr>
+<td class="field3-6 checkbox">
+<input type="radio" id="field3-6" name="field3" value="対応せず" /></td>
+<td class="field3-6">
+<label for="field3-6">
+対応せず</label>
+
+</td>
+</tr>
+<tr>
+<td class="field3-7 checkbox">
+<input type="radio" id="field3-7" name="field3" value="仕様通り" /></td>
+<td class="field3-7">
+<label for="field3-7">
+仕様通り</label>
+</td>
+</tr>
+</table>
+<script type="text/javascript">
+  <!--
+Event.observe(window, 'load', function(){
+  if ($('field3-1').checked) $('Message.field3').value = $F('field3-1');
+  if ($('field3-2').checked) $('Message.field3').value = $F('field3-2');
+  if ($('field3-3').checked) $('Message.field3').value = $F('field3-3');
+  if ($('field3-4').checked) $('Message.field3').value = $F('field3-4');
+  if ($('field3-5').checked) $('Message.field3').value = $F('field3-5');
+  if ($('field3-6').checked) $('Message.field3').value = $F('field3-6');
+  if ($('field3-7').checked) $('Message.field3').value = $F('field3-7');
+  });
+Event.observe($('field3-1'), 'change', function() {
+  if ($('field3-1').checked) $('Message.field3').value = $F('field3-1');
+});
+Event.observe($('field3-2'), 'change', function() {
+  if ($('field3-2').checked) $('Message.field3').value = $F('field3-2');
+});
+Event.observe($('field3-3'), 'change', function() {
+  if ($('field3-3').checked) $('Message.field3').value = $F('field3-3');
+});
+Event.observe($('field3-4'), 'change', function() {
+  if ($('field3-4').checked) $('Message.field3').value = $F('field3-4');
+});
+Event.observe($('field3-5'), 'change', function() {
+  if ($('field3-5').checked) $('Message.field3').value = $F('field3-5');
+});
+Event.observe($('field3-6'), 'change', function() {
+  if ($('field3-6').checked) $('Message.field3').value = $F('field3-6');
+});
+Event.observe($('field3-7'), 'change', function() {
+  if ($('field3-7').checked) $('Message.field3').value = $F('field3-7');
+});
+//-->
+</script>
+      <div class="description">状態を選択してください。&nbsp;</div>
+
+    </td>
+  </tr>
+  <tr>
+    <th class=" ticket_property">カテゴリ</th><td>
+<select size="4" id="field4" name="Message.field4" multiple="multiple">
+<option value="">&nbsp;</option>
+<option value="画面">画面</option>
+<option value="バッチ処理">バッチ処理</option>
+<option value="ドキュメント">ドキュメント</option>
+
+</select>
+<div class="description">カテゴリを選択してください。&nbsp;</div>
+    </td>
+  </tr>
+  <tr>
+    <th class=" ticket_property">優先度</th><td>
+<select id="field5" name="Message.field5">
+<option value="">&nbsp;</option>
+<option value="緊急">緊急</option>
+
+<option value="高">高</option>
+<option value="中">中</option>
+<option value="低">低</option>
+</select>
+      <div class="description">優先度を選択してください。&nbsp;</div>
+    </td>
+  </tr>
+  <tr>
+    <th class="required ticket_property">詳細<span class="required">※</span></th><td>
+
+      <div id="field6.required" class="error"></div>
+<textarea id="field6" name="Message.field6" rows="3" cols="10"></textarea>
+      <div class="description">詳細を記述してください。&nbsp;</div>
+    </td>
+  </tr>
+  <tr>
+    <th class=" ticket_property">再現手順</th><td>
+<textarea id="field7" name="Message.field7" rows="3" cols="10"></textarea>
+
+      <div class="description">問題を再現させるための条件と手順を記述してください。&nbsp;</div>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript" src="/starbug1/index.cgi/../js/validate.js"></script>
+<script type="text/javascript">
+  <!--
+  var required_field_indexs = [
+  1,
+  2,
+  3,
+  6,
+  9,
+  -1];
+  var date_field_indexs = [
+  -1];
+  // -->
+</script>
+<input class="button" type="submit" name="register" value="登録" />
+</form>
+</div>
+<div id="footer">
+<hr />
+<div align="right">
+<div><address>Powered by Google App Engine.</address></div>
+
+</div>
+</div>
+</body>
+</html>
+<!-- vi: set ts=2 sw=2 sts=2 expandtab fenc=utf-8: -->
