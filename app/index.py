@@ -30,11 +30,16 @@ class MainPage(webapp.RequestHandler):
         user = users.get_current_user()
 
         tickets_query = Ticket.all().order('-date')
-        tickets = tickets_query
-        for ticket in tickets:
+        tickets_query
+        tickets = []
+        for ticket in tickets_query:
             if len(ticket.messages) > 0:
-                ticket.__m = Message.get(ticket.messages[len(ticket.messages) - 1])
-        
+                message = Message.get(ticket.messages[len(ticket.messages) - 1])
+            tickets.append({
+                'ticket': ticket,
+                'message': message
+            })
+
         if user:
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -42,11 +47,7 @@ class MainPage(webapp.RequestHandler):
             url = users.create_login_url(self.request.uri)
             url_linktext = 'Login'
 
-        path = {
-            'script_name': os.environ['SCRIPT_NAME']
-        }
         params = {
-            'path': path,
             'tickets': tickets,
             'url': url,
             'url_linktext': url_linktext,
