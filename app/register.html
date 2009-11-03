@@ -11,8 +11,14 @@
 <body>
 <a name="top"></a>
 <h1 id="toptitle" title="Starbug1"><a href="http://starbug1.sourceforge.jp/"><img src="{{path.script_name}}/../img/starbug1.jpg" alt="Starbug1" /></a></h1>
+<div id='menu'> 
+  <ul> 
+    <li><a href='{{url}}' title="{{url_linktext}}">{{url_linktext}}</a></li> 
+    <li>{{user.nickname}}</li> 
+  </ul> 
+  <br clear='all' /> 
+</div> 
 <div>
-
 <ul id='projectmenu'>
   <li><a  href='/' title="チケット一覧を参照します">チケット一覧</a></li>
   <li><a class="current" href='/register' title="新規にチケットを登録します">チケット登録</a></li>
@@ -39,11 +45,8 @@
     </td>
   </tr>
   <tr>
-    <th class="required">投稿者<span class="required">※</span></th><td>
-      <div id="field2.required" class="error"></div>
-
-<input type="text" class="text element" id="field2" name="Message.field2" value="" maxlength="1023" />
-      <div class="description">投稿者を入力してください。&nbsp;</div>
+    <th>投稿者</th><td>
+      {{user.nickname|escape}}
     </td>
   </tr>
   <tr>
