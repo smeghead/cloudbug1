@@ -45,9 +45,9 @@
 
     {% for ticket in tickets %}
   <tr>
-    <td class="id field-1-"><a href="/ticket/3">{{ticket.ticket.id}}</a></td>
+    <td class="id field-1-"><a href="/view/3">{{ticket.ticket.id}}</a></td>
     <td class="field1">
-      <a href="/ticket/3">{{ticket.message.field1}}</a>
+      <a href="/view/3">{{ticket.message.field1}}</a>
     </td>
     <td class="field2">
       {% if ticket.message.author %}

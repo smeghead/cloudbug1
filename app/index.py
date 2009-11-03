@@ -2,6 +2,7 @@
 import datetime
 import sys
 import os
+import re
 import cgi
 from google.appengine.api import users
 from google.appengine.ext import webapp
@@ -65,9 +66,27 @@ class View(webapp.RequestHandler):
         params = {
             'user': user
         }
+        regexp = re.compile('.*view/(\d+)')
+        matches = regexp.match(self.request.uri)
+        if not matches:
+            raise Exception('no matche.')
+        id = matches.group(1)
+        if not id:
+            raise Exception
+        q = Ticket.all().filter('id =', int(id))
+        tickets = q.fetch(1)
+        if len(tickets) == 0:
+            raise Exception('no tickets.')
+        ticket = tickets[0]
+
+#         print('content-type:text/plain\n\n')
+#         print(self.request.uri)
+#         raise Exception
 
         path = os.path.join(os.path.dirname(__file__), 'view.html')
-        self.response.out.write(template.render(path, params))
+        self.response.out.write(template.render(path, {
+            'ticket': ticket
+        }))
     
     def post(self):
         message_posted = {
@@ -149,7 +168,7 @@ class Register(webapp.RequestHandler):
 application = webapp.WSGIApplication(
     [('/', MainPage),
      ('/register', Register),
-     ('/view', View)],
+     ('/view/.*', View)],
     debug=True)
 
 def main():
