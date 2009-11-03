@@ -22,6 +22,11 @@
 <h2>Cloudbug1 - チケット登録</h2>
 <div id="input_form">
 <h3>チケット登録</h3>
+{% if errormessage %}
+<div class="error">
+  {{errormessage}}
+</div>
+{% endif %}
 <div class="description">新規チケットを登録する場合は、以下のフォームを記入し登録ボタンを押してください。</div>
 <form id="register_form" name="register_form" action="/register" method="post">
 <table summary="input infomation">

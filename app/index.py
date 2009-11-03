@@ -10,16 +10,16 @@ from google.appengine.ext.webapp import template
 from google.appengine.ext import db
 
 class Ticket(db.Model):
-    author = db.UserProperty()
+    id = db.IntegerProperty(long)
     date = db.DateTimeProperty(auto_now_add=True)
     messages = db.ListProperty(db.Key)
     author = db.UserProperty()
 
 class Message(db.Model):
-    author = db.UserProperty()
-    field1 = db.StringProperty()
-    field2 = db.StringProperty()
-    field3 = db.StringProperty()
+    author = db.UserProperty(required=True)
+    field1 = db.StringProperty(required=True)
+    field2 = db.StringProperty(required=True)
+    field3 = db.StringProperty(required=True)
     field4 = db.ListProperty(unicode)
     field5 = db.StringProperty()
     field6 = db.StringProperty(multiline=True)
@@ -94,27 +94,45 @@ class Register(webapp.RequestHandler):
         self.response.out.write(template.render(path, params))
     
     def post(self):
-        user = users.get_current_user()
-        ticket = Ticket()
-        if user:
-            ticket.author = user
-        ticket.put()
-        message = Message(parent=ticket)
-        message.field1 = self.request.get('Message.field1')
-        message.field2 = self.request.get('Message.field2')
-        message.field3 = self.request.get('Message.field3')
-        fields = self.request.get_all('Message.field4')
-        message.field4 = map(lambda x: unicode(x, 'utf-8'), fields)
-        message.field5 = self.request.get('Message.field5')
-        message.field6 = self.request.get('Message.field6')
-        message.field7 = self.request.get('Message.field7')
-        message.field8 = self.request.get('Message.field8')
-        if user:
-            message.author = user
-        message.put()
-        ticket.messages.append(message.key())
-        ticket.put()
-        self.redirect('/')
+        message_posted = {
+            'field1': self.request.get('Message.field1'),
+            'field2': self.request.get('Message.field2'),
+            'field3': self.request.get('Message.field3'),
+            'field4': self.request.get_all('Message.field4'),
+            'field5': self.request.get('Message.field5'),
+            'field6': self.request.get('Message.field6'),
+            'field7': self.request.get('Message.field7'),
+            'field8': self.request.get('Message.field8'),
+        }
+        try:
+            user = users.get_current_user()
+            ticket = Ticket()
+            if user:
+                ticket.author = user
+            ticket.put()
+            message = Message(parent=ticket, **message_posted)
+#             message.field1 = message_posted.field1
+#             message.field2 = message_posted.field2
+#             message.field3 = message_posted.field3
+#             message.field4 = message_posted.field4
+#             #message.field4 = map(lambda x: unicode(x, 'utf-8'), fields)
+#             message.field5 = message_posted.field5
+#             message.field6 = message_posted.field6
+#             message.field7 = message_posted.field7
+#             message.field8 = message_posted.field8
+            if user:
+                message.author = user
+            message.put()
+            ticket.messages.append(message.key())
+            ticket.put()
+            self.redirect('/')
+        except Exception, mes:
+            path = os.path.join(os.path.dirname(__file__), 'register.html')
+            self.response.out.write(template.render(path, {
+                'errormessage': mes,
+                'message': message_posted
+            }))
+
 
 application = webapp.WSGIApplication(
     [('/', MainPage),
