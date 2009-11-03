@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 import datetime
+import sys
 import os
 import cgi
 from google.appengine.api import users
@@ -12,6 +13,7 @@ class Ticket(db.Model):
     author = db.UserProperty()
     date = db.DateTimeProperty(auto_now_add=True)
     messages = db.ListProperty(db.Key)
+    author = db.UserProperty()
 
 class Message(db.Model):
     author = db.UserProperty()
@@ -24,6 +26,7 @@ class Message(db.Model):
     field7 = db.StringProperty(multiline=True)
     field8 = db.StringProperty(multiline=True)
     date = db.DateTimeProperty(auto_now_add=True)
+    author = db.UserProperty()
 
 class MainPage(webapp.RequestHandler):
     def get(self):
@@ -91,19 +94,23 @@ class Register(webapp.RequestHandler):
         self.response.out.write(template.render(path, params))
     
     def post(self):
-        form = cgi.FieldStorage()
+        user = users.get_current_user()
         ticket = Ticket()
+        if user:
+            ticket.author = user
         ticket.put()
         message = Message(parent=ticket)
-        message.field1 = unicode(form.getfirst('field1'), 'utf-8')
-        message.field2 = unicode(self.request.get('Message.field2'), 'utf-8')
-        message.field3 = unicode(self.request.get('Message.field3'), 'utf-8')
-        fields = form.getlist('Message.field4')
+        message.field1 = self.request.get('Message.field1')
+        message.field2 = self.request.get('Message.field2')
+        message.field3 = self.request.get('Message.field3')
+        fields = self.request.get_all('Message.field4')
         message.field4 = map(lambda x: unicode(x, 'utf-8'), fields)
-        message.field5 = unicode(self.request.get('Message.field5'), 'utf-8')
-        message.field6 = unicode(self.request.get('Message.field6'), 'utf-8')
-        message.field7 = unicode(self.request.get('Message.field7'), 'utf-8')
-        message.field8 = unicode(self.request.get('Message.field8'), 'utf-8')
+        message.field5 = self.request.get('Message.field5')
+        message.field6 = self.request.get('Message.field6')
+        message.field7 = self.request.get('Message.field7')
+        message.field8 = self.request.get('Message.field8')
+        if user:
+            message.author = user
         message.put()
         ticket.messages.append(message.key())
         ticket.put()

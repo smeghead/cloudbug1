@@ -4,8 +4,8 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta http-equiv="Content-Script-Type" content="text/javascript" />
   <meta http-equiv="Content-Style-type" content="text/css" />
-  <title>chinese - 状態別チケット一覧</title>
-  <link rel="stylesheet" type="text/css" href="{{path.script_name}}/../css/style.css" />
+  <title>Cloudbug1 - チケット一覧</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css" />
 
 </head>
 <body>
@@ -13,51 +13,26 @@
 <h1 id="toptitle" title="Starbug1"><a href="http://starbug1.sourceforge.jp/"><img src="{{path.script_name}}/../img/starbug1.jpg" alt="Starbug1" /></a></h1>
 <div>
 <ul id='projectmenu'>
-  <li><a class="current" href='/' title="状態別のチケット一覧を参照します">状態別チケット一覧</a></li>
+  <li><a class="current" href='/' title="チケット一覧を参照します">チケット一覧</a></li>
 
   <li><a  href='/register' title="新規にチケットを登録します">チケット登録</a></li>
 
 </ul>
 <br clear='all' />
 </div>
-<h2>chinese - 状態別チケット一覧</h2>
-<div id="state_index">
-  <ul>
-    <li>
-      <a href="/starbug1/index.cgi/help/search?field3=%E6%96%B0%E5%BB%BA" title="状態を条件にして検索を行ないます。">新建</a>(3)
-    </li>
-    <li>
-      <form action="/starbug1/index.cgi/help/search" method="get">
-
-        <input type="text" class="number" name="id" title="入力したIDのチケットを表示します。" maxlength="19" value="" />
-        <input type="submit" class="button" value="ID指定で表示" />
-      </form>
-    </li>
-    <li>
-      <a id="new_ticket_link" href="/starbug1/index.cgi/help/register">新しいチケットを登録する</a>
-    </li>
-  </ul>
-
-  <br clear="all" />
-</div>
+<h2>Cloudbug1 - チケット一覧</h2>
 <div id="ticket_list">
-<h3>状態別チケット一覧</h3>
-<div class="description">未クローズの状態毎にチケットを表示しています。
-      <a href="#state1" title="ページ内へのリンク">新建</a>&nbsp;
-</div>
-<br clear="all" />
-<a id="state1" name="state1"></a>
+<h3>チケット一覧</h3>
 <div>
-<h4 class="status">新建&nbsp;(3件)&nbsp;<a href="#top">↑</a></h4>
 
 <table summary="ticket list">
   <tr>
     <th class="id">ID</th>
-    <th class="field1">主题</th>
+    <th class="field1">件名</th>
     <th class="field2">投稿者</th>
-    <th class="field3">状态</th>
-    <th class="field4">目录</th>
-    <th class="field5">优先度</th>
+    <th class="field3">状態</th>
+    <th class="field4">カテゴリ</th>
+    <th class="field5">優先度</th>
     <th class="registerdate">投稿日時</th>
   </tr>
 
@@ -69,23 +44,23 @@
     </td>
     <td class="field2">
       {% if message.author %}
-        {{ message.author.nickname|escape }}
+        {{ ticket.message.author.nickname|escape }}
       {% else %}
         anonymous
       {% endif %}
     </td>
     <td class="field3 field3-1">
-      {{message.field3|escape}}
+      {{ticket.message.field3|escape}}
     </td>
 
     <td class="field4">
-      {{message.field4|escape}}
+      {{ticket.message.field4|join:" "|escape}}
     </td>
     <td class="field5 field5-0">
-      {{message.field5|escape}}
+      {{ticket.message.field5|escape}}
     </td>
     <td class="registerdate">
-      {{message.date|escape}}
+      {{ticket.message.date|escape}}
     </td>
   </tr>
     {% endfor %}
