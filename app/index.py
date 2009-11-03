@@ -22,7 +22,7 @@ class Message(db.Model):
     field3 = db.StringProperty(required=True)
     field4 = db.ListProperty(unicode)
     field5 = db.StringProperty()
-    field6 = db.StringProperty(multiline=True)
+    field6 = db.StringProperty(multiline=True, required=True)
     field7 = db.StringProperty(multiline=True)
     field8 = db.StringProperty(multiline=True)
     date = db.DateTimeProperty(auto_now_add=True)
