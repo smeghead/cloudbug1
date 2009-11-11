@@ -62,10 +62,13 @@ class MainPage(webapp.RequestHandler):
 class View(webapp.RequestHandler):
     def get(self):
         user = users.get_current_user()
+        if user:
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'ログアウト'
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'ログイン'
 
-        params = {
-            'user': user
-        }
         regexp = re.compile('.*view/(\d+)')
         matches = regexp.match(self.request.uri)
         if not matches:
@@ -78,14 +81,15 @@ class View(webapp.RequestHandler):
         if len(tickets) == 0:
             raise Exception('no tickets.')
         ticket = tickets[0]
-
-#         print('content-type:text/plain\n\n')
-#         print(self.request.uri)
-#         raise Exception
+        message = Message.get(ticket.messages[len(ticket.messages) - 1])
 
         path = os.path.join(os.path.dirname(__file__), 'view.html')
         self.response.out.write(template.render(path, {
-            'ticket': ticket
+            'user': user,
+            'url': url,
+            'url_linktext': url_linktext,
+            'ticket': ticket,
+            'message': message
         }))
     
     def post(self):
@@ -161,7 +165,10 @@ class Register(webapp.RequestHandler):
             path = os.path.join(os.path.dirname(__file__), 'register.html')
             self.response.out.write(template.render(path, {
                 'errormessage': mes,
-                'message': message_posted
+                'message': message_posted,
+                'user': user,
+                'url': url,
+                'url_linktext': url_linktext,
             }))
 
 application = webapp.WSGIApplication(

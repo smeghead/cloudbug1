@@ -9,76 +9,74 @@
 
 </head>
 <body>
-<a name="top"></a>
-<h1 id="toptitle" title="Starbug1"><a href="http://starbug1.sourceforge.jp/"><img src="{{path.script_name}}/../img/starbug1.jpg" alt="Starbug1" /></a></h1>
-<div id='menu'> 
-  <ul> 
-    <li><a href='{{url}}' title="{{url_linktext}}">{{url_linktext}}</a></li> 
-    <li>{{user.nickname}}</li> 
-  </ul> 
-  <br clear='all' /> 
-</div> 
-<div>
-<ul id='projectmenu'>
-  <li><a class="current" href='/' title="チケット一覧を参照します">チケット一覧</a></li>
+  <a name="top"></a>
+  <h1 id="toptitle" title="Starbug1"><a href="http://starbug1.sourceforge.jp/"><img src="{{path.script_name}}/../img/starbug1.jpg" alt="Starbug1" /></a></h1>
+  <div id='menu'> 
+    <ul> 
+      <li><a href='{{url}}' title="{{url_linktext}}">{{url_linktext}}</a></li> 
+      <li>{{user.nickname}}</li> 
+    </ul> 
+    <br clear='all' /> 
+  </div> 
+  <div>
+    <ul id='projectmenu'>
+      <li><a class="current" href='/' title="チケット一覧を参照します">チケット一覧</a></li>
 
-  <li><a  href='/register' title="新規にチケットを登録します">チケット登録</a></li>
+      <li><a  href='/register' title="新規にチケットを登録します">チケット登録</a></li>
 
-</ul>
-<br clear='all' />
-</div>
-<h2>Cloudbug1 - チケット一覧</h2>
-<div id="ticket_list">
-<h3>チケット一覧</h3>
-<div>
+    </ul>
+    <br clear='all' />
+  </div>
+  <h2>Cloudbug1 - チケット一覧</h2>
+  <div id="ticket_list">
+    <h3>チケット一覧</h3>
+    <div>
+      <table summary="ticket list">
+        <tr>
+          <th class="id">ID</th>
+          <th class="subject">件名</th>
+          <th class="registerer">投稿者</th>
+          <th class="status">状態</th>
+          <th class="categories">カテゴリ</th>
+          <th class="priority">優先度</th>
+          <th class="registerdate">投稿日時</th>
+        </tr>
+        {% for ticket in tickets %}
+        <tr>
+          <td class="id subject-1-"><a href="/view/{{ticket.ticket.id}}">{{ticket.ticket.id}}</a></td>
+          <td class="subject">
+            <a href="/view/{{ticket.ticket.id}}">{{ticket.message.subject}}</a>
+          </td>
+          <td class="registerer">
+            {% if ticket.message.author %}
+              {{ ticket.message.author.nickname|escape }}
+            {% else %}
+              anonymous
+            {% endif %}
+          </td>
+          <td class="status status-1">
+            {{ticket.message.status|escape}}
+          </td>
 
-<table summary="ticket list">
-  <tr>
-    <th class="id">ID</th>
-    <th class="subject">件名</th>
-    <th class="registerer">投稿者</th>
-    <th class="status">状態</th>
-    <th class="categories">カテゴリ</th>
-    <th class="priority">優先度</th>
-    <th class="registerdate">投稿日時</th>
-  </tr>
-
-    {% for ticket in tickets %}
-  <tr>
-    <td class="id subject-1-"><a href="/view/{{ticket.ticket.id}}">{{ticket.ticket.id}}</a></td>
-    <td class="subject">
-      <a href="/view/{{ticket.ticket.id}}">{{ticket.message.subject}}</a>
-    </td>
-    <td class="registerer">
-      {% if ticket.message.author %}
-        {{ ticket.message.author.nickname|escape }}
-      {% else %}
-        anonymous
-      {% endif %}
-    </td>
-    <td class="status status-1">
-      {{ticket.message.status|escape}}
-    </td>
-
-    <td class="categories">
-      {{ticket.message.categories|join:" "|escape}}
-    </td>
-    <td class="priority priority-0">
-      {{ticket.message.priority|escape}}
-    </td>
-    <td class="registerdate">
-      {{ticket.message.date|escape}}
-    </td>
-  </tr>
-    {% endfor %}
-</table>
-</div>
-</div>
-<div id="footer">
-<hr />
-<div align="right">
-<div><address>Powered by Google App Engine.</address></div>
-</div>
+          <td class="categories">
+            {{ticket.message.categories|join:" "|escape}}
+          </td>
+          <td class="priority priority-0">
+            {{ticket.message.priority|escape}}
+          </td>
+          <td class="registerdate">
+            {{ticket.message.date|escape}}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+  <div id="footer">
+    <hr />
+    <div align="right">
+    <div><address>Powered by Google App Engine.</address></div>
+  </div>
 </body>
 </html>
 <!-- vi: set ts=2 sw=2 sts=2 expandtab fenc=utf-8: -->
