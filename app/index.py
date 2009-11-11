@@ -87,6 +87,7 @@ class View(webapp.RequestHandler):
         self.response.out.write(template.render(path, {
             'user': user,
             'url': url,
+            's': "新規",
             'url_linktext': url_linktext,
             'ticket': ticket,
             'message': message
