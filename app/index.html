@@ -35,36 +35,36 @@
 <table summary="ticket list">
   <tr>
     <th class="id">ID</th>
-    <th class="field1">件名</th>
-    <th class="field2">投稿者</th>
-    <th class="field3">状態</th>
-    <th class="field4">カテゴリ</th>
-    <th class="field5">優先度</th>
+    <th class="subject">件名</th>
+    <th class="registerer">投稿者</th>
+    <th class="status">状態</th>
+    <th class="categories">カテゴリ</th>
+    <th class="priority">優先度</th>
     <th class="registerdate">投稿日時</th>
   </tr>
 
     {% for ticket in tickets %}
   <tr>
-    <td class="id field-1-"><a href="/view/3">{{ticket.ticket.id}}</a></td>
-    <td class="field1">
-      <a href="/view/3">{{ticket.message.field1}}</a>
+    <td class="id subject-1-"><a href="/view/{{ticket.ticket.id}}">{{ticket.ticket.id}}</a></td>
+    <td class="subject">
+      <a href="/view/{{ticket.ticket.id}}">{{ticket.message.subject}}</a>
     </td>
-    <td class="field2">
+    <td class="registerer">
       {% if ticket.message.author %}
         {{ ticket.message.author.nickname|escape }}
       {% else %}
         anonymous
       {% endif %}
     </td>
-    <td class="field3 field3-1">
-      {{ticket.message.field3|escape}}
+    <td class="status status-1">
+      {{ticket.message.status|escape}}
     </td>
 
-    <td class="field4">
-      {{ticket.message.field4|join:" "|escape}}
+    <td class="categories">
+      {{ticket.message.categories|join:" "|escape}}
     </td>
-    <td class="field5 field5-0">
-      {{ticket.message.field5|escape}}
+    <td class="priority priority-0">
+      {{ticket.message.priority|escape}}
     </td>
     <td class="registerdate">
       {{ticket.message.date|escape}}

@@ -9,179 +9,155 @@
 
 </head>
 <body>
-<a name="top"></a>
-<h1 id="toptitle" title="Starbug1"><a href="http://starbug1.sourceforge.jp/"><img src="{{path.script_name}}/../img/starbug1.jpg" alt="Starbug1" /></a></h1>
-<div id='menu'> 
-  <ul> 
-    <li><a href='{{url}}' title="{{url_linktext}}">{{url_linktext}}</a></li> 
-    <li>{{user.nickname}}</li> 
-  </ul> 
-  <br clear='all' /> 
-</div> 
-<div>
-<ul id='projectmenu'>
-  <li><a  href='/' title="チケット一覧を参照します">チケット一覧</a></li>
-  <li><a class="current" href='/register' title="新規にチケットを登録します">チケット登録</a></li>
-</ul>
-<br clear='all' />
-</div>
-<h2>Cloudbug1 - チケット登録</h2>
-<div id="input_form">
-<h3>チケット登録</h3>
-{% if errormessage %}
-<div class="error">
-  {{errormessage}}
-</div>
-{% endif %}
-<div class="description">新規チケットを登録する場合は、以下のフォームを記入し登録ボタンを押してください。</div>
-<form id="register_form" name="register_form" action="/register" method="post">
-<table summary="input infomation">
-  <tr>
-    <th class="required ticket_property">件名<span class="required">※</span></th><td>
+  <a name="top"></a>
+  <h1 id="toptitle" title="Starbug1"><a href="http://starbug1.sourceforge.jp/"><img src="{{path.script_name}}/../img/starbug1.jpg" alt="Starbug1" /></a></h1>
+  <div id='menu'> 
+    <ul> 
+      <li><a href='{{url}}' title="{{url_linktext}}">{{url_linktext}}</a></li> 
+      <li>{{user.nickname}}</li> 
+    </ul> 
+    <br clear='all' /> 
+  </div> 
+  <div>
+    <ul id='projectmenu'>
+      <li><a  href='/' title="チケット一覧を参照します">チケット一覧</a></li>
+      <li><a class="current" href='/register' title="新規にチケットを登録します">チケット登録</a></li>
+    </ul>
+    <br clear='all' />
+  </div>
+  <h2>Cloudbug1 - チケット登録</h2>
+  <div id="input_form">
+  <h3>チケット登録</h3>
+  {% if errormessage %}
+  <div class="error">
+    {{errormessage}}
+  </div>
+  {% endif %}
+  <div class="description">新規チケットを登録する場合は、以下のフォームを記入し登録ボタンを押してください。</div>
+    <form id="register_form" name="register_form" action="/register" method="post">
+      <table summary="input infomation">
+        <tr>
+          <th class="required ticket_property">件名<span class="required">※</span></th><td>
+            <input type="text" class="text element" id="subject" name="Message.subject" value="" maxlength="1023" />
+            <div class="description">内容を簡潔に表すような件名を入力してください。&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <th>投稿者</th><td>
+            {{user.nickname|escape}}
+          </td>
+        </tr>
+        <tr>
+          <th class="required ticket_property">状態<span class="required">※</span></th>
+          <td>
+            <table id="ticket_list" class="selection">
+              <tr>
+                <td class="status-1 checkbox">
+                  <input type="radio" id="status-1" name="Message.status" value="新規" checked="checked" /></td>
+                  <td class="status-1">
+                  <label for="status-1"><strong>新規</strong></label>
+                </td>
+              </tr>
+              <tr>
+                <td class="status-2 checkbox">
+                  <input type="radio" id="status-2" name="Message.status" value="受付済" />
+                </td>
+                <td class="status-2">
+                  <label for="status-2">受付済</label>
+                </td>
+              </tr>
+              <tr>
+                <td class="status-3 checkbox">
+                  <input type="radio" id="status-3" name="Message.status" value="修正済" />
+                </td>
+                <td class="status-3">
+                  <label for="status-3">修正済</label>
+                </td>
+              </tr>
+              <tr>
+                <td class="status-4 checkbox">
+                  <input type="radio" id="status-4" name="Message.status" value="保留" />
+                </td>
+                <td class="status-4">
+                  <label for="status-4">保留</label>
+                </td>
+              </tr>
+              <tr>
+                <td class="status-5 checkbox">
+                  <input type="radio" id="status-5" name="Message.status" value="完了" />
+                </td>
+                <td class="status-5">
+                  <label for="status-5">完了</label>
+                </td>
+              </tr>
+              <tr>
+                <td class="status-6 checkbox">
+                  <input type="radio" id="status-6" name="Message.status" value="対応せず" />
+                </td>
+                <td class="status-6">
+                  <label for="status-6">対応せず</label>
+                </td>
+              </tr>
+              <tr>
+                <td class="status-7 checkbox">
+                  <input type="radio" id="status-7" name="Message.status" value="仕様通り" />
+                </td>
+                <td class="status-7">
+                  <label for="status-7">仕様通り</label>
+                </td>
+              </tr>
+            </table>
+            <div class="description">状態を選択してください。&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <th class=" ticket_property">カテゴリ</th><td>
+            <select size="4" id="categories" name="Message.categories" multiple="multiple">
+              <option value="">&nbsp;</option>
+              <option value="画面">画面</option>
+              <option value="バッチ処理">バッチ処理</option>
+              <option value="ドキュメント">ドキュメント</option>
+            </select>
+            <div class="description">カテゴリを選択してください。&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <th class=" ticket_property">優先度</th><td>
+            <select id="priority" name="Message.priority">
+              <option value="">&nbsp;</option>
+              <option value="緊急">緊急</option>
+              <option value="高">高</option>
+              <option value="中">中</option>
+              <option value="低">低</option>
+            </select>
+            <div class="description">優先度を選択してください。&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <th class="required ticket_property">詳細<span class="required">※</span></th><td>
 
-      <div id="field1.required" class="error"></div>
-<input type="text" class="text element" id="field1" name="Message.field1" value="" maxlength="1023" />
-      <div class="description">内容を簡潔に表すような件名を入力してください。&nbsp;</div>
-    </td>
-  </tr>
-  <tr>
-    <th>投稿者</th><td>
-      {{user.nickname|escape}}
-    </td>
-  </tr>
-  <tr>
-    <th class="required ticket_property">状態<span class="required">※</span></th><td>
-      <div id="field3.required" class="error"></div>
-<table id="ticket_list" class="selection">
-<tr>
-<td class="field3-1 checkbox">
-<input type="radio" id="field3-1" name="Message.field3" value="新規" checked="checked" /></td>
-<td class="field3-1">
-<label for="field3-1">
-<strong>新規</strong></label>
-</td>
-</tr>
-<tr>
-<td class="field3-2 checkbox">
-<input type="radio" id="field3-2" name="Message.field3" value="受付済" /></td>
-<td class="field3-2">
-<label for="field3-2">
-受付済</label>
+            <textarea id="detail" name="Message.detail" rows="3" cols="10"></textarea>
+            <div class="description">詳細を記述してください。&nbsp;</div>
+          </td>
+        </tr>
+        <tr>
+          <th class=" ticket_property">再現手順</th><td>
+            <textarea id="reproduction_procedure" name="Message.reproduction_procedure" rows="3" cols="10"></textarea>
 
-</td>
-</tr>
-<tr>
-<td class="field3-3 checkbox">
-<input type="radio" id="field3-3" name="Message.field3" value="修正済" /></td>
-<td class="field3-3">
-<label for="field3-3">
-修正済</label>
-</td>
-</tr>
-<tr>
-<td class="field3-4 checkbox">
-<input type="radio" id="field3-4" name="Message.field3" value="保留" /></td>
-<td class="field3-4">
-<label for="field3-4">
-保留</label>
+            <div class="description">問題を再現させるための条件と手順を記述してください。&nbsp;</div>
+          </td>
+        </tr>
+      </table>
+      <input class="button" type="submit" name="register" value="登録" />
+    </form>
+  </div>
+  <div id="footer">
+    <hr />
+    <div align="right">
+    <div><address>Powered by Google App Engine.</address></div>
 
-</td>
-</tr>
-<tr>
-<td class="field3-5 checkbox">
-<input type="radio" id="field3-5" name="Message.field3" value="完了" /></td>
-<td class="field3-5">
-<label for="field3-5">
-完了</label>
-</td>
-</tr>
-<tr>
-<td class="field3-6 checkbox">
-<input type="radio" id="field3-6" name="Message.field3" value="対応せず" /></td>
-<td class="field3-6">
-<label for="field3-6">
-対応せず</label>
-
-</td>
-</tr>
-<tr>
-<td class="field3-7 checkbox">
-<input type="radio" id="field3-7" name="Message.field3" value="仕様通り" /></td>
-<td class="field3-7">
-<label for="field3-7">
-仕様通り</label>
-</td>
-</tr>
-</table>
-      <div class="description">状態を選択してください。&nbsp;</div>
-
-    </td>
-  </tr>
-  <tr>
-    <th class=" ticket_property">カテゴリ</th><td>
-<select size="4" id="field4" name="Message.field4" multiple="multiple">
-<option value="">&nbsp;</option>
-<option value="画面">画面</option>
-<option value="バッチ処理">バッチ処理</option>
-<option value="ドキュメント">ドキュメント</option>
-
-</select>
-<div class="description">カテゴリを選択してください。&nbsp;</div>
-    </td>
-  </tr>
-  <tr>
-    <th class=" ticket_property">優先度</th><td>
-<select id="field5" name="Message.field5">
-<option value="">&nbsp;</option>
-<option value="緊急">緊急</option>
-
-<option value="高">高</option>
-<option value="中">中</option>
-<option value="低">低</option>
-</select>
-      <div class="description">優先度を選択してください。&nbsp;</div>
-    </td>
-  </tr>
-  <tr>
-    <th class="required ticket_property">詳細<span class="required">※</span></th><td>
-
-      <div id="field6.required" class="error"></div>
-<textarea id="field6" name="Message.field6" rows="3" cols="10"></textarea>
-      <div class="description">詳細を記述してください。&nbsp;</div>
-    </td>
-  </tr>
-  <tr>
-    <th class=" ticket_property">再現手順</th><td>
-<textarea id="field7" name="Message.field7" rows="3" cols="10"></textarea>
-
-      <div class="description">問題を再現させるための条件と手順を記述してください。&nbsp;</div>
-    </td>
-  </tr>
-</table>
-<script type="text/javascript" src="/starbug1/index.cgi/../js/validate.js"></script>
-<script type="text/javascript">
-  <!--
-  var required_field_indexs = [
-  1,
-  2,
-  3,
-  6,
-  9,
-  -1];
-  var date_field_indexs = [
-  -1];
-  // -->
-</script>
-<input class="button" type="submit" name="register" value="登録" />
-</form>
-</div>
-<div id="footer">
-<hr />
-<div align="right">
-<div><address>Powered by Google App Engine.</address></div>
-
-</div>
-</div>
+    </div>
+  </div>
 </body>
 </html>
 <!-- vi: set ts=2 sw=2 sts=2 expandtab fenc=utf-8: -->

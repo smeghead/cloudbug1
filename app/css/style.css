@@ -79,17 +79,9 @@ div#ticket_list table th.id {
     width: 30px;
 }
 /* チケット一覧 件名 */
-div#ticket_list table th.field1 {
+div#ticket_list table th.subject {
     width: 30%;
 }
-/* |+チケット一覧 投稿者+| */
-/* div#ticket_list table th.field2 { */
-/*     width: 80px; */
-/* } */
-/* チケット一覧 状態 */
-/* div#ticket_list table th.field3 { */
-/*     width: 45px; */
-/* } */
 /* チケット一覧 ID */
 div#ticket_list table td.id {
     text-align: center;
