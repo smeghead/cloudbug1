@@ -17,13 +17,13 @@ class Ticket(db.Model):
     author = db.UserProperty()
 
 class Message(db.Model):
-    field1 = db.StringProperty(required=True)
-    field3 = db.StringProperty(required=True)
-    field4 = db.ListProperty(unicode)
-    field5 = db.StringProperty()
-    field6 = db.StringProperty(multiline=True, required=True)
-    field7 = db.StringProperty(multiline=True)
-    field8 = db.StringProperty(multiline=True)
+    subject = db.StringProperty(required=True)
+    status = db.StringProperty(required=True)
+    categories = db.ListProperty(unicode)
+    priority = db.StringProperty()
+    detail = db.StringProperty(multiline=True, required=True)
+    reproduction_procedure = db.StringProperty(multiline=True)
+    comment = db.StringProperty(multiline=True)
     date = db.DateTimeProperty(auto_now_add=True)
     author = db.UserProperty()
 
@@ -95,13 +95,13 @@ class View(webapp.RequestHandler):
     
     def post(self):
         message_posted = {
-            'field1': self.request.get('Message.field1'),
-            'field3': self.request.get('Message.field3'),
-            'field4': self.request.get_all('Message.field4'),
-            'field5': self.request.get('Message.field5'),
-            'field6': self.request.get('Message.field6'),
-            'field7': self.request.get('Message.field7'),
-            'field8': self.request.get('Message.field8'),
+            'subject': self.request.get('Message.subject'),
+            'status': self.request.get('Message.status'),
+            'categories': self.request.get_all('Message.categories'),
+            'priority': self.request.get('Message.priority'),
+            'detail': self.request.get('Message.detail'),
+            'reproduction_procedure': self.request.get('Message.reproduction_procedure'),
+            'comment': self.request.get('Message.comment'),
         }
         try:
             user = users.get_current_user()
@@ -136,14 +136,21 @@ class Register(webapp.RequestHandler):
         self.response.out.write(template.render(path, params))
     
     def post(self):
+        user = users.get_current_user()
+        if user:
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'ログアウト'
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'ログイン'
         message_posted = {
-            'field1': self.request.get('Message.field1'),
-            'field3': self.request.get('Message.field3'),
-            'field4': self.request.get_all('Message.field4'),
-            'field5': self.request.get('Message.field5'),
-            'field6': self.request.get('Message.field6'),
-            'field7': self.request.get('Message.field7'),
-            'field8': self.request.get('Message.field8'),
+            'subject': self.request.get('Message.subject'),
+            'status': self.request.get('Message.status'),
+            'categories': self.request.get_all('Message.categories'),
+            'priority': self.request.get('Message.priority'),
+            'detail': self.request.get('Message.detail'),
+            'reproduction_procedure': self.request.get('Message.reproduction_procedure'),
+            'comment': self.request.get('Message.comment'),
         }
         try:
             lastticket = Ticket.all().order('-id').fetch(1)
@@ -152,10 +159,9 @@ class Register(webapp.RequestHandler):
             else:
                 next_id = lastticket[0].id + 1
             user = users.get_current_user()
-            ticket = Ticket(id=next_id)
+            ticket = Ticket(id=next_id, key_name='ticket' + str(next_id))
             if user:
                 ticket.author = user
-            ticket.put()
             message = Message(parent=ticket, **message_posted)
             if user:
                 message.author = user
