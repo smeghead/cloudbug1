@@ -39,219 +39,177 @@
           {{message.subject|escape}}&nbsp;</td> 
       </tr> 
       <tr> 
-        <th> 
-    状態&nbsp;</th> 
+        <th>状態&nbsp;</th> 
         <td> 
-    新規&nbsp;</td> 
+          {{message.status|escape}}&nbsp;</td> 
       </tr> 
       <tr> 
-        <th> 
-    カテゴリ&nbsp;</th> 
+        <th>カテゴリ&nbsp;</th> 
         <td> 
-    &nbsp;</td> 
+          {{message.categories|join:" "|escape}};</td> 
       </tr> 
       <tr> 
-        <th> 
-    優先度&nbsp;</th> 
+        <th>優先度&nbsp;</th> 
         <td> 
-    &nbsp;</td> 
+          {{message.priority|escape}}&nbsp;</td> 
       </tr> 
       <tr> 
-        <th> 
-    詳細&nbsp;</th> 
+        <th>詳細&nbsp;</th> 
         <td> 
-    ああ&nbsp;</td> 
+          {{message.priority|escape}}&nbsp;</td> 
       </tr> 
       <tr> 
-        <th> 
-    再現手順&nbsp;</th> 
+        <th>再現手順&nbsp;</th> 
         <td> 
-    &nbsp;</td> 
+          {{message.priority|escape}}&nbsp;</td> 
       </tr> 
     </table> 
   </div><div class="infomation"><a href="#reply">返信する</a></div> 
   <a name="reply"></a> 
   <div id="input_form"> 
-  <h3>チケット返信</h3> 
-  <form id="reply_form" name="reply_form" action="/starbug1/index.cgi/bababa/register_submit" method="post" enctype="multipart/form-data"> 
-  <input type="hidden" name="ticket_id" value="1" /> 
-  <div class="description">返信を行なう場合は、以下のフォームに内容を記入して返信ボタンを押してください。</div> 
-  <noscript><div class="description">※必須項目の入力チェックは、javascriptで行なっています。</div></noscript> 
-  <h4>チケット情報の更新</h4> 
-  <div class="description">チケット情報(チケットの状態など)を更新する必要がある場合は、以下の情報を変更してください。</div> 
-  <table class="reply_table" summary="input table"> 
-    <tr> 
-      <th class="required ticket_property">件名<span class="required">※</span></th> 
-      <td>
-  <input type="text" class="text element" id="field1" name="field1" value="けんめい" maxlength="1023" /> 
-      <div class="description">内容を簡潔に表すような件名を入力してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-    <tr> 
-      <th class="required ticket_property">状態<span class="required">※</span></th> 
-      <td>    
-  <input type="hidden" id="field3" name="field3-hidden" value="新規" /> 
-  <table id="ticket_list" class="selection"> 
-  <tr> 
-  <td class="field3-1 checkbox"> 
-  <input type="radio" id="field3-1" name="field3" value="新規" checked="checked" /></td> 
-  <td class="field3-1"> 
-  <label for="field3-1"> 
-  <strong>新規</strong></label> 
-  </td> 
-  </tr> 
-  <tr> 
-  <td class="field3-2 checkbox"> 
-  <input type="radio" id="field3-2" name="field3" value="受付済" /></td> 
-  <td class="field3-2"> 
-  <label for="field3-2"> 
-  受付済</label> 
-  </td> 
-  </tr> 
-  <tr> 
-  <td class="field3-3 checkbox"> 
-  <input type="radio" id="field3-3" name="field3" value="修正済" /></td> 
-  <td class="field3-3"> 
-  <label for="field3-3"> 
-  修正済</label> 
-  </td> 
-  </tr> 
-  <tr> 
-  <td class="field3-4 checkbox"> 
-  <input type="radio" id="field3-4" name="field3" value="保留" /></td> 
-  <td class="field3-4"> 
-  <label for="field3-4"> 
-  保留</label> 
-  </td> 
-  </tr> 
-  <tr> 
-  <td class="field3-5 checkbox"> 
-  <input type="radio" id="field3-5" name="field3" value="完了" /></td> 
-  <td class="field3-5"> 
-  <label for="field3-5"> 
-  完了</label> 
-  </td> 
-  </tr> 
-  <tr> 
-  <td class="field3-6 checkbox"> 
-  <input type="radio" id="field3-6" name="field3" value="対応せず" /></td> 
-  <td class="field3-6"> 
-  <label for="field3-6"> 
-  対応せず</label> 
-  </td> 
-  </tr> 
-  <tr> 
-  <td class="field3-7 checkbox"> 
-  <input type="radio" id="field3-7" name="field3" value="仕様通り" /></td> 
-  <td class="field3-7"> 
-  <label for="field3-7"> 
-  仕様通り</label> 
-  </td> 
-  </tr> 
-  </table> 
-      <div class="description">状態を選択してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-    <tr> 
-      <th class="ticket_property">カテゴリ</th> 
-      <td><select size="4" id="field4" name="field4" multiple="multiple"> 
-  <option value="">&nbsp;</option> 
-  <option value="画面">画面</option> 
-  <option value="バッチ処理">バッチ処理</option> 
-  <option value="ドキュメント">ドキュメント</option> 
-  </select> 
-  <div class="description">カテゴリを選択してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-    <tr> 
-      <th class="ticket_property">優先度</th> 
-      <td><select id="field5" name="field5"> 
-  <option value="">&nbsp;</option> 
-  <option value="緊急">緊急</option> 
-  <option value="高">高</option> 
-  <option value="中">中</option> 
-  <option value="低">低</option> 
-  </select> 
-      <div class="description">優先度を選択してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-    <tr> 
-      <th class="required ticket_property">詳細<span class="required">※</span></th> 
-      <td>    
-  <textarea id="field6" name="field6" rows="3" cols="10">ああ</textarea> 
-      <div class="description">詳細を記述してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-    <tr> 
-      <th class="ticket_property">再現手順</th> 
-      <td><textarea id="field7" name="field7" rows="3" cols="10"></textarea> 
-      <div class="description">問題を再現させるための条件と手順を記述してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-    <tr> 
-      <th class="required ticket_property">らじお<span class="required">※</span></th> 
-      <td>    
-  <input type="hidden" id="field9" name="field9-hidden" value="らじお2" /> 
-  <table id="ticket_list" class="selection"> 
-  <tr> 
-  <td class="field9-15 checkbox"> 
-  <input type="radio" id="field9-15" name="field9" value="らじお1" /></td> 
-  <td class="field9-15"> 
-  <label for="field9-15"> 
-  らじお1</label> 
-  </td> 
-  </tr> 
-  <tr> 
-  <td class="field9-16 checkbox"> 
-  <input type="radio" id="field9-16" name="field9" value="らじお2" checked="checked" /></td> 
-  <td class="field9-16"> 
-  <label for="field9-16"> 
-  <strong>らじお2</strong></label> 
-  </td> 
-  </tr> 
-  </table> 
-  <script type="text/javascript"> 
-    <!--
-  Event.observe(window, 'load', function(){
-    if ($('field9-15').checked) $('field9').value = $F('field9-15');
-    if ($('field9-16').checked) $('field9').value = $F('field9-16');
-    });
-  Event.observe($('field9-15'), 'change', function() {
-    if ($('field9-15').checked) $('field9').value = $F('field9-15');
-  });
-  Event.observe($('field9-16'), 'change', function() {
-    if ($('field9-16').checked) $('field9').value = $F('field9-16');
-  });
-  //-->
-  </script> 
-      <div class="description">&nbsp;</div> 
-    </td> 
-    </tr> 
-  </table> 
-  <h4>返信情報の追加</h4> 
-  <div class="description">返信情報を記入してください。</div> 
-  <table summary="input table"> 
-    <tr> 
-      <th class="required">投稿者<span class="required">※</span></th> 
-      <td>    <div id="field2.required" class="error"></div> 
-  <input type="text" class="text element" id="field2" name="field2" value="" maxlength="1023" /> 
-      <div class="description">投稿者を入力してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-    <tr> 
-      <th >コメント</th> 
-      <td><textarea id="field8" name="field8" rows="3" cols="10"></textarea> 
-      <div class="description">コメントを記述してください。&nbsp;</div> 
-    </td> 
-    </tr> 
-  </table> 
-  <input class="button" type="submit" name="reply" value="返信" />&nbsp;&nbsp;&nbsp;
-  </form> 
-  </div> 
-  <div id="footer">
-  <hr />
-  <div align="right">
-  <div><address>Powered by Google App Engine.</address></div>
-  </div>
+    <h3>チケット返信</h3> 
+      <form id="reply_form" name="reply_form" action="/starbug1/index.cgi/bababa/register_submit" method="post" enctype="multipart/form-data"> 
+        <input type="hidden" name="ticket_id" value="1" /> 
+        <div class="description">返信を行なう場合は、以下のフォームに内容を記入して返信ボタンを押してください。</div> 
+        <h4>チケット情報の更新</h4> 
+        <div class="description">チケット情報(チケットの状態など)を更新する必要がある場合は、以下の情報を変更してください。</div> 
+        <table class="reply_table" summary="input table"> 
+          <tr> 
+            <th class="required ticket_property">件名<span class="required">※</span></th> 
+            <td>
+              <input type="text" class="text element" id="field1" name="field1" value="けんめい" maxlength="1023" /> 
+              <div class="description">内容を簡潔に表すような件名を入力してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+          <tr> 
+            <th class="required ticket_property">状態<span class="required">※</span></th> 
+            <td>    
+              <input type="hidden" id="field3" name="field3-hidden" value="新規" /> 
+              <table id="ticket_list" class="selection"> 
+                <tr> 
+                  <td class="field3-1 checkbox"> 
+                    <input type="radio" id="field3-1" name="field3" value="新規" checked="checked" />
+                  </td> 
+                  <td class="field3-1"> 
+                    <label for="field3-1"> 
+                    <strong>新規</strong></label> 
+                  </td> 
+                </tr> 
+                <tr> 
+                  <td class="field3-2 checkbox"> 
+                    <input type="radio" id="field3-2" name="field3" value="受付済" />
+                  </td> 
+                  <td class="field3-2"> 
+                    <label for="field3-2">受付済</label> 
+                  </td> 
+                </tr> 
+                <tr> 
+                  <td class="field3-3 checkbox"> 
+                    <input type="radio" id="field3-3" name="field3" value="修正済" />
+                  </td> 
+                  <td class="field3-3"> 
+                    <label for="field3-3">修正済</label> 
+                  </td> 
+                </tr> 
+                <tr> 
+                  <td class="field3-4 checkbox"> 
+                    <input type="radio" id="field3-4" name="field3" value="保留" />
+                  </td> 
+                  <td class="field3-4"> 
+                    <label for="field3-4">保留</label> 
+                  </td> 
+                </tr> 
+                <tr> 
+                  <td class="field3-5 checkbox"> 
+                    <input type="radio" id="field3-5" name="field3" value="完了" />
+                  </td> 
+                  <td class="field3-5"> 
+                    <label for="field3-5">完了</label> 
+                  </td> 
+                </tr> 
+                <tr> 
+                  <td class="field3-6 checkbox"> 
+                    <input type="radio" id="field3-6" name="field3" value="対応せず" />
+                  </td> 
+                  <td class="field3-6"> 
+                    <label for="field3-6">対応せず</label> 
+                  </td> 
+                </tr> 
+                <tr> 
+                  <td class="field3-7 checkbox"> 
+                    <input type="radio" id="field3-7" name="field3" value="仕様通り" />
+                  </td> 
+                  <td class="field3-7"> 
+                    <label for="field3-7">仕様通り</label> 
+                  </td> 
+                </tr> 
+              </table> 
+              <div class="description">状態を選択してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+          <tr> 
+            <th class="ticket_property">カテゴリ</th> 
+            <td>
+              <select size="4" id="field4" name="field4" multiple="multiple"> 
+                <option value="">&nbsp;</option> 
+                <option value="画面">画面</option> 
+                <option value="バッチ処理">バッチ処理</option> 
+                <option value="ドキュメント">ドキュメント</option> 
+              </select> 
+              <div class="description">カテゴリを選択してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+          <tr> 
+            <th class="ticket_property">優先度</th> 
+            <td>
+              <select id="field5" name="field5"> 
+                <option value="">&nbsp;</option> 
+                <option value="緊急">緊急</option> 
+                <option value="高">高</option> 
+                <option value="中">中</option> 
+                <option value="低">低</option> 
+              </select> 
+              <div class="description">優先度を選択してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+          <tr> 
+            <th class="required ticket_property">詳細<span class="required">※</span></th> 
+            <td>    
+              <textarea id="field6" name="field6" rows="3" cols="10">ああ</textarea> 
+              <div class="description">詳細を記述してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+          <tr> 
+            <th class="ticket_property">再現手順</th> 
+            <td><textarea id="field7" name="field7" rows="3" cols="10"></textarea> 
+              <div class="description">問題を再現させるための条件と手順を記述してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+        </table> 
+        <h4>返信情報の追加</h4> 
+        <div class="description">返信情報を記入してください。</div> 
+        <table summary="input table"> 
+          <tr> 
+            <th class="required">投稿者<span class="required">※</span></th> 
+            <td>
+              <input type="text" class="text element" id="field2" name="field2" value="" maxlength="1023" /> 
+              <div class="description">投稿者を入力してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+          <tr> 
+            <th >コメント</th> 
+            <td><textarea id="field8" name="field8" rows="3" cols="10"></textarea> 
+              <div class="description">コメントを記述してください。&nbsp;</div> 
+            </td> 
+          </tr> 
+        </table> 
+        <input class="button" type="submit" name="reply" value="返信" />&nbsp;&nbsp;&nbsp;
+      </form> 
+    </div> 
+    <div id="footer">
+      <hr />
+      <div align="right">
+        <div><address>Powered by Google App Engine.</address></div>
+      </div>
 </body> 
 </html> 
